@@ -37,7 +37,7 @@ class UserController extends BaseController {
   constructor(model) {
     super(model);
     router.get("/", this.getAll);
-    router.post("/", this.validation(userCreateSchema), authorize, checkRole(['admin']), this.checkUnique, this.encrypt,  this.create);
+    router.post("/", this.validation(userCreateSchema), authorize, this.checkUnique, this.encrypt,  this.create);
     router.get("/:id", this.get);
     router.put("/:id", this.validation(userUpdateSchema), authorize, checkRole(['admin']), this.update);
     router.delete("/:id", this.delete);

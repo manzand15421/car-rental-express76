@@ -1,4 +1,6 @@
-require('dotenv').config()
+const envPath = process.env.NODE_ENV === 'development'?
+'.env' : `.env.${process.env.NODE_ENV}`
+require('dotenv').config({path: envPath})
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -24,13 +26,15 @@ app.get('/', async (req, res) => {
 
 app.use('/api/v1', routes)
 
-//application level middleware untuk error handling
+//application level middleware unuk error handling
 app.use(errorHandler)
 
 app.use((req, res, next) => {
   next(new NotFoundError(null, "Sorry, page not found!"));
 })
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
 });
+
+module.exports = server; // untuk dapat di gunakan pada testing

@@ -19,7 +19,7 @@ async function authorize(req, res, next) {
  
 function checkRole(roles){
     return (req, res, next) => {
-        if(!roles.includes(req.user.role)) 
+        if(!roles.includes(req.user.role_id)) 
             return res.status(403).json({message: 'Forbidden'});
         next();
     }

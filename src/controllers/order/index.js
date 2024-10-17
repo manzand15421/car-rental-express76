@@ -155,7 +155,7 @@ class OrderController extends BaseController {
           }
         }
       });
-      
+     
       if (order.status !== "paid") {
         return next(new ValidationError("Order not paid!"));
       }

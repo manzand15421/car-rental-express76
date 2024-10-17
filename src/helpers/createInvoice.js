@@ -25,6 +25,7 @@ function generateHeader(doc) {
     .text("123 Main Street", 200, 65, { align: "right" })
     .text("New York, NY, 10025", 200, 80, { align: "right" })
     .moveDown();
+
 }
 
 function generateCustomerInformation(doc, invoice) {

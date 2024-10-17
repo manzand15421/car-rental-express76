@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({log: ['query']});
+
 
 // abstract class
 class BaseModel {
@@ -10,21 +11,21 @@ class BaseModel {
   }
 
   get = async ({ where = {}, q = {}, select = this.select }) => {
-    const { sortBy = "createdDt", sort = "desc", page = 1, limit = 10 } = q;
+    const { sortBy, sort, page, limit } = q;
     const query = {
       select,
       where,
       orderBy: {
         [sortBy]: sort,
       },
-      skip: (page - 1) * limit,
+      skip: (page - 1) * limit, 
       take: limit,
     };
     
     const [resources, count] = await prisma.$transaction([
       this.model.findMany(query),
       this.model.count({where})
-    ]);
+    ])
 
     return {
       resources,

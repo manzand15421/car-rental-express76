@@ -20,6 +20,7 @@ class BaseController {
         search = undefined
       } = req.query;
 
+
       if(search) search = this.handleSearch(search)
       if(this.filter){
         search = {
